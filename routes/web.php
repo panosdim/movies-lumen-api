@@ -22,6 +22,8 @@ $router->post('login', ['uses' => 'AuthController@authenticate']);
 // Register
 $router->post('register', ['uses' => 'AuthController@register']);
 
+// Popular Movies
+$router->get('/popular', 'MoviesController@popular');
 
 $router->group(
     ['middleware' => 'jwt.auth'],
@@ -40,7 +42,6 @@ $router->group(
             $router->delete('/{id:[\d]+}', 'MoviesController@destroy');
             $router->get('/update', 'MoviesController@update');
             $router->post('/search', 'MoviesController@search');
-            $router->get('/popular', 'MoviesController@popular');
             $router->post('/autocomplete', 'MoviesController@autocomplete');
         });
     }

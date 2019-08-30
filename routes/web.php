@@ -33,6 +33,16 @@ $router->group(
             return response()->json($request->auth);
         });
 
+        // Update Release Dates
+        $router->get('/update', 'MoviesController@update');
+
+        // Search for Movies
+        $router->post('/search', 'MoviesController@search');
+
+        // Auto Complete support
+        $router->post('/autocomplete', 'MoviesController@autocomplete');
+
+
         // Watch List API
         $router->group([
             'prefix' => '/movies',
@@ -40,9 +50,6 @@ $router->group(
             $router->get('/', 'MoviesController@index');
             $router->post('/', 'MoviesController@store');
             $router->delete('/{id:[\d]+}', 'MoviesController@destroy');
-            $router->get('/update', 'MoviesController@update');
-            $router->post('/search', 'MoviesController@search');
-            $router->post('/autocomplete', 'MoviesController@autocomplete');
         });
     }
 );

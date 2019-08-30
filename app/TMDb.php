@@ -31,7 +31,7 @@ class TMDb
 
         /** @var $rel_date DateTime */
         $rel_date = null;
-        $release_date = '0000-00-00';
+        $release_date = null;
 
         // Get Release Date
         $data = json_decode(

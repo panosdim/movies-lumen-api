@@ -42,6 +42,7 @@ class MoviesController extends Controller
             'title'        => $request->title,
             'overview'     => $request->overview,
             'movie_id'     => $request->movie_id,
+            'image'        => $request->image,
             'release_date' => $release_date,
         ]);
 
@@ -87,10 +88,9 @@ class MoviesController extends Controller
     /**
      * Get popular movies from TMDb.
      *
-     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function popular(Request $request)
+    public function popular()
     {
         return response(TMDb::popularMovies(), 200)->header('Content-Type', 'application/json');
     }

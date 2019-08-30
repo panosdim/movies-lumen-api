@@ -4,4 +4,11 @@
 
 <rule ref="VariableAnalysis"/>
 
+<rule ref="VariableAnalysis.CodeAnalysis.VariableAnalysis">
+    <properties>
+        <property name="validUndefinedVariableNames" value="router"/>
+        <property name="validUnusedVariableNames" value="router"/>
+    </properties>
+</rule>
+
 </ruleset>

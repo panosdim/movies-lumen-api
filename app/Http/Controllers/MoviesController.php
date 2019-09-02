@@ -58,10 +58,11 @@ class MoviesController extends Controller
     public function update(Request $request)
     {
         // Find all movies without release release_date
-        $movies = Movies::where('user_id', $request->auth->id)->where('release_date', '0000-00-00')->get();
+        $movies = Movies::where('user_id', $request->auth->id)->whereNull('release_date')->get();
+
         foreach ($movies as $movie) {
             $release_date = TMDb::getReleaseDate($movie->movie_id);
-            if ($release_date != '0000-00-00') {
+            if (!is_null($release_date)) {
                 $movie->release_date = $release_date;
                 $movie->save();
             }

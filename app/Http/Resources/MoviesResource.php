@@ -16,7 +16,6 @@ class MoviesResource extends JsonResource
     {
         return [
             'id'           => $this->id,
-            'user_id'      => $this->user_id,
             'title'        => $this->title,
             'overview'     => $this->overview,
             'release_date' => $this->release_date,

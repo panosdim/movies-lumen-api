@@ -19,9 +19,6 @@ $router->get('/', function () use ($router) {
 // Login
 $router->post('login', ['uses' => 'AuthController@authenticate']);
 
-// Register
-$router->post('register', ['uses' => 'AuthController@register']);
-
 // Popular Movies
 $router->get('/popular', 'MoviesController@popular');
 

@@ -6,25 +6,13 @@ use DateTime;
 
 class TMDb
 {
-    // TODO: Remove proxy settings
-    const OPTS = [
-            'http' => [
-                'proxy'           => 'tcp://10.124.32.12:80',
-                'request_fulluri' => true
-            ],
-            'ssl' => [
-                'verify_peer'      => false,
-                'verify_peer_name' => false,
-            ]
-        ];
-
     const URL = 'https://api.themoviedb.org/3/';
     const IMAGE_URL = 'https://image.tmdb.org/t/p/';
 
     public static function getReleaseDate(int $movie_id)
     {
         // Create a stream
-        $context = stream_context_create(self::OPTS);
+        $context = stream_context_create();
 
         // TMDb API Key
         $key = env('TMDd_KEY');
@@ -39,16 +27,14 @@ class TMDb
             true
         );
         foreach ($data['results'] as $item) {
-            if ($item['iso_3166_1'] == 'US') {
-                foreach ($item['release_dates'] as $rd) {
-                    if ($rd['type'] > 3) {
-                        $date = new DateTime($rd['release_date']);
-                        if (is_null($rel_date)) {
+            foreach ($item['release_dates'] as $rd) {
+                if ($rd['type'] > 3) {
+                    $date = new DateTime($rd['release_date']);
+                    if (is_null($rel_date)) {
+                        $rel_date = clone $date;
+                    } else {
+                        if ($rel_date > $date) {
                             $rel_date = clone $date;
-                        } else {
-                            if ($rel_date > $date) {
-                                $rel_date = clone $date;
-                            }
                         }
                     }
                 }
@@ -65,7 +51,7 @@ class TMDb
     public static function searchForMovie(string $query = null)
     {
         // Create a stream
-        $context = stream_context_create(self::OPTS);
+        $context = stream_context_create();
 
         // TMDb API Key
         $key = env('TMDd_KEY');
@@ -83,7 +69,7 @@ class TMDb
     public static function popularMovies()
     {
         // Create a stream
-        $context = stream_context_create(self::OPTS);
+        $context = stream_context_create();
 
         // TMDb API Key
         $key = env('TMDd_KEY');
@@ -99,7 +85,7 @@ class TMDb
     public static function autoComplete(string $query = null)
     {
         // Create a stream
-        $context = stream_context_create(self::OPTS);
+        $context = stream_context_create();
 
         // TMDb API Key
         $key = env('TMDd_KEY');
